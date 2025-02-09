@@ -64,7 +64,13 @@
         //1j
 
       const container = document.querySelector('.js-container');
-      const root = ReactDOM.createRoot(container).render(paragraph4); //here we display it
+      const root = ReactDOM.createRoot(container); //here we display it
+      root.render(paragraph4);
+
+      setInterval(() => {
+        const paragraph4 = <p>Current time: {dayjs().format('HH:mm:ss')}</p>;
+        root.render(paragraph4);
+      }, 1000);
     </script>
   </body>
 </html>
