@@ -1,0 +1,29 @@
+React
+    External library that helps us create websites easier.
+    É mais facil de encontrar erro ao longo do codigo
+    Basicamente, usa-se bibliotecas externas para criar site. Essas bibliotecas, são links
+    de codigos já escritos que facilitam o processo de criação.
+
+    Babel: JS compiler
+    Translates other languages into JS.
+    (It needs to be load at the code)
+
+    When we use React, we don't use normal JS. We use an enhanced version of JS.
+    We use JSX (JavaScript XML), it's the same of JS, but allows us to write HTML directly in our JS code.
+
+        <script>
+            const button = <button>Hello</button>
+        </script>
+
+    BASICALLY in React we create a container and we can display an HTML element inside.
+
+    HOW TO DISPLAY MULTIPLE ELEMENTS:
+    
+         const div = 
+            <div>
+                <button>Hello</button>
+                <p>Insert text here</p>
+            </div>;
+
+
+    
