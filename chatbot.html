@@ -8,21 +8,58 @@
 
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
+   
+      function ChatInput({ chatMessages, setChatMessages }) {
+        const [inputText, setInputText] = React.useState('');
 
-      function ChatInput() {
+        function saveInputText(event) {
+          setInputText(event.target.value);
+        }
+
+        function sendMessage() {
+          const newChatMessages = [
+            ...chatMessages,
+            {
+              message: inputText,
+              sender: 'user',
+              id: crypto.randomUUID() //create a random ID
+            }
+          ];
+
+          setChatMessages(newChatMessages);
+
+          const response = Chatbot.getResponse(inputText);
+          setChatMessages([
+            ...newChatMessages,
+            {
+              message: response,
+              sender: 'robot',
+              id: crypto.randomUUID() //create a random ID
+            }
+          ]);
+
+          setInputText(''); //It'll update the textbox to be empty. This doesn't update the HTML, it needs to be updated.
+        }
+
         return (
           <>
             <input 
               placeholder="Send a message to Chatbot" 
               size="30"
+              onChange={saveInputText}
+              value={inputText} //let us change the text inside this input
             />
-            <button>Send</button>
+
+            <button
+              onClick={sendMessage}
+            >Send</button>
           </>
-        )
-      };
+        );
+      }
 
       function ChatMessage({ message, sender }) {
         //const message = props.message;
@@ -46,51 +83,61 @@
         //using IF STATEMENT inside JSX
           <div> 
             {sender === 'robot' && (
-              <img src="robot.png" width="50"/>
+              <img src="robot.png" width="50" />
             )} 
             {message}
             {sender === 'user' && (
-              <img src="user.png" width="50"/>
+              <img src="user.png" width="50" />
             )} 
           </div>
         );
       }
-      //Ao inves de usar uma variavel para o APP é melhor utilizar uma component para criar-lo
-        function App () {//savinga the data
-          const chatMessages = [{
+
+      function ChatMessages ({ chatMessages }) {
+        
+        return (
+          <>
+            {chatMessages.map((chatMessage) => {
+              return (
+                <ChatMessage 
+                  message={chatMessage.message}
+                  sender={chatMessage.sender}
+                  key={chatMessage.id}
+                />
+              );
+            })}
+          </>
+        );
+      }
+
+      
+        function App () {
+          const [chatMessages, setChatMessages] = React.useState([{
             message: 'Hello Chatbot',
-            sender: 'user'
+            sender: 'user',
+            id: 'id1'
           }, {
             message: 'Hello, How can I help you?',
-            sender: 'robot'
+            sender: 'robot',
+            id: 'id2'
           }, {
             message: 'Can you get me todays date?',
-            sender: 'user'
+            sender: 'user',
+            id: 'id3'
           }, {
             message: 'Today is February 16th',
-            sender: 'robot'
-          }];
-          //Generate HTML
+            sender: 'robot',
+            id: 'id4'
+          }]);
 
-          chatMessages:
           return (
               <>
-                <ChatInput />
-                <ChatMessage 
-                  message="Hello Chatbot" 
-                  sender="user"
+                <ChatInput 
+                  chatMessages={chatMessages}
+                  setChatMessages={setChatMessages}
                 />
-                <ChatMessage 
-                  message="Hello, How can I help you?" 
-                  sender="robot"
-                />
-                <ChatMessage 
-                  message="Can you get me todays date?" 
-                  sender="user"
-                />
-                <ChatMessage 
-                  message="Today is February 9th" 
-                  sender="robot"
+                <ChatMessages 
+                chatMessages={chatMessages}
                 />
               </>
           );

@@ -1,2 +1,80 @@
 State, Event Handlers
 
+     //Ao inves de usar uma variavel para o APP é melhor utilizar uma component para criar-lo
+        function App () {//savinga the data
+          const chatMessages = [{
+            message: 'Hello Chatbot',
+            sender: 'user'
+          }, {
+            message: 'Hello, How can I help you?',
+            sender: 'robot'
+          }, {
+            message: 'Can you get me todays date?',
+            sender: 'user'
+          }, {
+            message: 'Today is February 16th',
+            sender: 'robot'
+          }];
+        }
+          //Generate HTML
+
+          chatMessages.map(); ---> Permite ir em cada valor da array e converter em um novo valor.
+          
+            [
+                value1,
+                value2,
+                value3
+            ]
+
+            to
+
+            [
+                newvalue1,
+                newvalue2,
+                newvalue3
+            ]
+
+            OBSERVEAÇÃO: Quando damos uma função a outra função usa-se Arrow Function pois ajuda o codigo a ficar mais limpo
+
+            Each component in React needs to have a prop called Key.
+
+
+    EVENT HANDLERS
+        It runs the function when we interact with the site.
+
+            function sendMessage() {
+                console.log('send message');
+            }
+
+            <button onClick={sendMessage}>Send Message</button>
+
+
+        onClick: É o Event, o que será feito para interagir com essa função
+        sendMessage: é o Event Handlers, como ele ira se comportar depois do click (ativando a função anterior.)
+
+            .push(): add a value into the array
+
+    STATE:
+        Data that is connected to the HTML. We use it to save data that changes over time.
+        Updater Function: Should use this function to update the data, React will update the HTML. 
+        In React we should  not modify the data directly. We should always create a copy, and the modify the copy.
+            to copy, we have a JS feature:
+                setChatMessages([
+                    ...chatMessages
+                ])
+            This is the Spread Operator(...), it takes the values in the array, and copies them into a new array
+            SHORTCUTS - CALLED ARRAY DESTRUCTURING
+                This
+                const chatMessages = array[0];
+                const setChatMessages = array[1];
+                to this
+                const [chatMessages, setChatMessages] = array; (It gets that 1st and 2nd values of the array/THE ORDER MATTER)
+
+    HOW TO GET ANY TEXT IN THE TEXTBOX
+        In normal JS we use DOM to get the input element and get the prop value to get the text inside of the textbox.
+        But in React we do not use the DOM manually. We use react features:
+            onChange: runs a function when we change the text inside an <input>.
+            event.target: give us the element that we're typing in 
+
+        LIFTING THE STATE UP: its share the state between components
+        Controlling inputs
