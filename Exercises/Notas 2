@@ -1,0 +1,54 @@
+COMPONENTS AND PROPOS
+    link: https://supersimple.dev/projects/chatbot/
+
+    Components: it's just a piece of the website and they are design to be reuseble
+
+    JSX: it more strict with open and close tags. Usually input doesn't need to close tag in normal HTML, but in JSX it needs.
+        <input></input> OR <imput /> (use a self-closing element)
+
+    Um dos beneficios do React é que ele nos permite criar nossas proprias tags em HTML.
+
+        {ChatInput()}   IS THE SAME OF      <ChatInput></ChatInput> or <ChatInput />(se nao houver nd entre as tags)
+
+    React tem uma outra forma de agrupar os elementos (EVITA O USO EXCESSIVO DE DIVs)
+
+        Fragments:
+           Ao inves de usar: <div></div>, usa-se <></>. Dessa forma não ira inserir uma nova DIV
+           Mas é importante utilizar a DIV quando precisa-se de um layout especifico 
+
+PROPS(short for properties): Every components function gets one parameter that in React we can call props
+    This props parameter is an object that containe all the atribuittes that we will give to this component
+
+
+SHORTCUTS used in React
+    const message = props.message;  ---->  const { message } = props; (CALLED DESTRUCTING)
+
+
+     function ChatMessage(props) {                              
+        //const message = props.message;
+        //const sender = props.sender;
+        const { message, sender } = props;
+     }
+
+        SAME AS 
+
+    function ChatMessage({message, sender}) {
+
+    }
+
+
+IF STATEMENT DIRECTLY INside of JSX
+
+     if (sender === 'robot') {
+            return (
+              <div> 
+                <img src="robot.png" width="50"/>
+                {message}
+              </div>
+            );
+          }
+
+          SHORT CUT INSIDE JSX
+
+    {sender === 'robot' && <img src="robot.png" width="50"/>} 
+    (se sender é igual a robot, entao o resultado sera a imagem depois do &&)

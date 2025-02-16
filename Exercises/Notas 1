@@ -25,5 +25,8 @@ React
                 <p>Insert text here</p>
             </div>;
 
+    PARA ATUALIZAR O CODIGO NO GIT:
+            git add .
+            git push origin main
 
     Link para exercicios: https://github.com/SuperSimpleDev/react-course/blob/main/1-exercise-solutions/lesson-01/1j.html#L21

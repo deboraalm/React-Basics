@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+      function ChatInput() {
+        return (
+          <>
+            <input 
+              placeholder="Send a message to Chatbot" 
+              size="30"
+            />
+            <button>Send</button>
+          </>
+        )
+      };
+
+      function ChatMessage({ message, sender }) {
+        //const message = props.message;
+        //const sender = props.sender;
+        //const { message, sender } = props;
+
+        //check the sender (user/robot) with if statement
+
+          /*if (sender === 'robot') {
+            return (
+              <div> 
+                <img src="robot.png" width="50"/>
+                {message}
+              </div>
+            );
+          }*/
+        
+        return ( 
+          
+        //Foi usado o DIV para que o codigo ocupe a linha de baixo
+        //using IF STATEMENT inside JSX
+          <div> 
+            {sender === 'robot' && (
+              <img src="robot.png" width="50"/>
+            )} 
+            {message}
+            {sender === 'user' && (
+              <img src="user.png" width="50"/>
+            )} 
+          </div>
+        );
+      }
+      //Ao inves de usar uma variavel para o APP é melhor utilizar uma component para criar-lo
+        function App () {//savinga the data
+          const chatMessages = [{
+            message: 'Hello Chatbot',
+            sender: 'user'
+          }, {
+            message: 'Hello, How can I help you?',
+            sender: 'robot'
+          }, {
+            message: 'Can you get me todays date?',
+            sender: 'user'
+          }, {
+            message: 'Today is February 16th',
+            sender: 'robot'
+          }];
+          //Generate HTML
+
+          chatMessages:
+          return (
+              <>
+                <ChatInput />
+                <ChatMessage 
+                  message="Hello Chatbot" 
+                  sender="user"
+                />
+                <ChatMessage 
+                  message="Hello, How can I help you?" 
+                  sender="robot"
+                />
+                <ChatMessage 
+                  message="Can you get me todays date?" 
+                  sender="user"
+                />
+                <ChatMessage 
+                  message="Today is February 9th" 
+                  sender="robot"
+                />
+              </>
+          );
+        }
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App />); 
+    </script>
+  </body>
+</html>
