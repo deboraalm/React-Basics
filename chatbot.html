@@ -20,21 +20,28 @@
           setInputText(event.target.value);
         }
 
-        function sendMessage() {
+        async function sendMessage() {
           const newChatMessages = [
             ...chatMessages,
             {
               message: inputText,
               sender: 'user',
               id: crypto.randomUUID() //create a random ID
+            },
+            {
+              message: 'Loading...',
+              sender: 'robot',
+              id: crypto.randomUUID()
             }
           ];
 
           setChatMessages(newChatMessages);
 
-          const response = Chatbot.getResponse(inputText);
+          setInputText(''); //It'll update the textbox to be empty. This doesn't update the HTML, it needs to be updated.
+
+          const response = await Chatbot.getResponseAsync(inputText);
           setChatMessages([
-            ...newChatMessages,
+            ...newChatMessages.slice(0, newChatMessages.length - 1),
             {
               message: response,
               sender: 'robot',
@@ -42,7 +49,14 @@
             }
           ]);
 
-          setInputText(''); //It'll update the textbox to be empty. This doesn't update the HTML, it needs to be updated.
+        }
+
+        function handleKeyDown(event) { //Para botão ENTER funcionar 
+          if (event.key === 'Enter') {
+            sendMessage();
+          } else if (event.key === 'Escape') { //botao ESC funcionar
+            setInputText('');
+          }
         }
 
         return (
@@ -51,12 +65,13 @@
               placeholder="Send a message to Chatbot" 
               size="30"
               onChange={saveInputText}
+              onKeyDown={handleKeyDown}//botao enter
               value={inputText} //let us change the text inside this input
             />
 
             <button
               onClick={sendMessage}
-            >Send</button>
+              >Send</button>
           </>
         );
       }
